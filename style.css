@@ -8,6 +8,7 @@
 body {
    text-align: center;
    background: linear-gradient(to bottom, #6ab7f5, #fff);
+   position: relative;
    min-height: 100vh;
 }
 
@@ -29,12 +30,12 @@ main {
    left: 50%;
    transform: translate(-63%, 20%);
    height: 18%;
-   transition: opacity 0.5s ease-in-out; /* Define a transição suave */
-   opacity: 0; /* Começa invisível */
+   transition: opacity 0.5s ease-in-out;
+   opacity: 0;
 }
 
 .pokemon__image.loaded {
-   opacity: 1; /* Quando carregado, o Pokémon aparece */
+   opacity: 1;
 }
 
 .pokemon__date {
@@ -69,15 +70,17 @@ main {
    font-size: clamp(10px, 5vw, 1rem);
    box-shadow: -3px 4px 0 #888, -5px 7px 0 #333;
 }
+
 .buttons {
    position: absolute;
    bottom: 10%;
    left: 50%;
    width: 65%;
-   transform: translate(-57%, 0);
+   transform: translate(-50%, 0);
    display: flex;
    gap: 20px;
 }
+
 .button {
    width: 50%;
    padding: 4%;
@@ -88,7 +91,7 @@ main {
    color: white;
    background-color: #444;
    box-shadow: -2px 3px 0 #222, -4px 6px #000;
-   transition: all 0.3s ease; /* Transição suave para todas as mudanças */
+   transition: all 0.3s ease;
 }
 
 .button:hover {
@@ -97,12 +100,12 @@ main {
    cursor: pointer;
 }
 
-
 .button.clicked {
-   box-shadow: inset -4px 4px 0 #222; /* Efeito de sombra ao pressionar */
-   transform: scale(0.95); /* Efeito de compressão no botão */
-   font-size: 0.9rem; /* Alterando o tamanho da fonte */
+   box-shadow: inset -4px 4px 0 #222;
+   transform: scale(0.95);
+   font-size: 0.9rem;
 }
+
 .loading {
    animation: spin 1s infinite linear;
 }
@@ -116,3 +119,78 @@ main {
    }
 }
 
+.pokemon-card {
+   position: absolute;
+   display: block; /* Sempre presente, controlamos com opacity */
+   width: 600px;
+   height: 200px;
+   background-color: rgba(255, 255, 255, 0.9);
+   border: solid 2px #000;
+   border-radius: 10px;
+   padding: 2px;
+   opacity: 0; /* Invisível inicialmente */
+   transition: opacity 0.5s ease-in-out; /* Transição de fade-in e fade-out */
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+   z-index: 10;
+   pointer-events: none; /* Não permite interação enquanto invisível */
+}
+
+.pokemon-card.visible {
+   opacity: 1; /* Aparece com fade-in */
+   pointer-events: auto; /* Permite interação quando visível */
+}
+
+.pokemon-card.hidden {
+   opacity: 0; /* Some com fade-out */
+   pointer-events: none; /* Impede interação durante o fade-out */
+}
+
+
+.pokemon-card__image {
+   width: 20%; /* A imagem ocupa toda a largura disponível */
+   height: auto; /* A altura da imagem se ajusta proporcionalmente */
+   margin-bottom: 0.3em; /* Margem mínima abaixo da imagem */
+}
+
+.card-larger {
+   width: 260px; /* Aumenta a largura do card */
+   height: 190px; /* Aumenta a altura do card */
+}
+@media (max-width: 320px) {
+   .card-larger {
+      width: 225px; /* Largura menor em telas de 320px */
+      height: 160px; /* Altura menor */
+   }
+}
+
+
+
+.pokemon-card__info {
+   width: 100%; /* O texto vai ocupar toda a largura do card */
+   height: auto;
+   padding: 1px 8px; /* Define um padding fixo para consistência */
+   font-size: clamp(10px, 2.5vw, 14px); /* Mantém a responsividade do texto */
+   line-height: 1.4; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
+   margin: 2px 0; /* Ajusta o espaçamento vertical entre os elementos */
+   border-radius: 4px; /* Suaviza os cantos */
+   background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente para destacar o texto */
+   color: #333; /* Cor do texto mais suave */
+}
+
+.pokemon-card__close {
+   background-color: #ff6347; /* Tom mais suave de vermelho para o botão */
+   color: #fff; /* Texto branco no botão */
+   border: none; /* Remove a borda padrão */
+   border-radius: 4px; /* Bordas arredondadas */
+   padding: clamp(4px, 1.5vw, 8px); /* Padding responsivo */
+   cursor: pointer; /* Cursor de ponteiro para indicar que é clicável */
+   font-size: clamp(8px, 2vw, 12px); /* Tamanho do texto responsivo */
+   margin-top: clamp(4px, 1.5vw, 8px); /* Espaço acima do botão */
+   width: clamp(60px, 25%, 100px); /* Largura ajustada para o botão */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar o botão */
+   transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.pokemon-card__close:hover {
+   background-color: #e5533c; /* Muda a cor do botão ao passar o mouse */
+}
