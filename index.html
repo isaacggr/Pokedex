@@ -3,6 +3,10 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta
+         name="description"
+         content="Pokedex interativa com informações de Pokémon da API PokeAPI"
+      />
 
       <link rel="icon" href="./assets/icon.png" />
       <link rel="stylesheet" href="style.css" />
@@ -13,45 +17,120 @@
 
       <script defer src="script.js"></script>
 
-      <title>Pokedex</title>
+      <title>Pokedex - Explorador de Pokémon</title>
    </head>
 
    <body>
       <main>
+         <h1 class="sr-only">Pokedex - Explorador de Pokémon</h1>
+
          <img
             src="#"
-            alt="pokemon"
+            alt="Imagem do Pokémon atual"
             class="pokemon__image"
+            tabindex="0"
+            aria-label="Clique para ver mais detalhes do Pokémon"
          />
-         <h1 class="pokemon__date">
+
+         <div class="pokemon__date" aria-live="polite">
             <span class="pokemon__number"></span> -
             <span class="pokemon__name"></span>
-         </h1>
-         <form class="form">
+         </div>
+
+         <form class="form" aria-label="Formulário de pesquisa de Pokémon">
             <input
                type="search"
                class="input__search"
-               placeholder="Name or Number"
+               placeholder="Nome ou Número"
+               aria-label="Digite o nome ou número do Pokémon"
                required
             />
          </form>
+
          <div class="buttons">
-            <button class="button btn-prev">Prev &#60;</button>
-            <button class="button btn-next">&#62; Next</button>
+            <button class="button btn-prev" aria-label="Pokémon anterior">
+               Prev &#60;
+            </button>
+            <button class="button btn-next" aria-label="Próximo Pokémon">
+               &#62; Next
+            </button>
          </div>
 
-
-         <div class="pokemon-card hidden">
-            <img class="pokemon-card__image" src="#" alt="Imagem do Pokémon" />
-            <p class="pokemon-card__info">Tipo: <span class="pokemon-card__type"></span></p>
-            <p class="pokemon-card__info">Altura: <span class="pokemon-card__height"></span></p>
-            <p class="pokemon-card__info">Peso: <span class="pokemon-card__weight"></span></p>
-            <button class="pokemon-card__close">Fechar</button>
+         <div class="pokemon-card hidden" aria-hidden="true">
+            <img
+               class="pokemon-card__image"
+               src="#"
+               alt="Imagem detalhada do Pokémon"
+            />
+            <p class="pokemon-card__info">
+               Tipo: <span class="pokemon-card__type"></span>
+            </p>
+            <p class="pokemon-card__info">
+               Altura: <span class="pokemon-card__height"></span>
+            </p>
+            <p class="pokemon-card__info">
+               Peso: <span class="pokemon-card__weight"></span>
+            </p>
+            <button
+               class="pokemon-card__close"
+               aria-label="Fechar detalhes do Pokémon"
+            >
+               Fechar
+            </button>
          </div>
-         
 
-         
-         <img src="./assets/pokedex.png" alt="pokedex" class="pokedex" />
+         <img
+            src="./assets/pokedex.png"
+            alt="Imagem de fundo da Pokedex"
+            class="pokedex"
+         />
       </main>
+
+      <footer>
+         <p>
+            Desenvolvido com a
+            <a
+               href="https://pokeapi.co/"
+               target="_blank"
+               rel="noopener noreferrer"
+               >PokeAPI</a
+            >
+         </p>
+      </footer>
+
+      <!-- Adicionar estilos inline para elementos ocultos para leitores de tela -->
+      <style>
+         .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+         }
+
+         footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #444;
+            background-color: rgba(255, 255, 255, 0.7);
+         }
+
+         footer a {
+            color: #0066cc;
+            text-decoration: none;
+         }
+
+         footer a:hover {
+            text-decoration: underline;
+         }
+      </style>
    </body>
 </html>

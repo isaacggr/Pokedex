@@ -32,10 +32,16 @@ main {
    height: 18%;
    transition: opacity 0.5s ease-in-out;
    opacity: 0;
+   cursor: pointer; /* Indica que é clicável */
 }
 
 .pokemon__image.loaded {
    opacity: 1;
+}
+
+.pokemon__image:hover {
+   transform: translate(-63%, 20%) scale(1.1); /* Efeito de zoom ao passar o mouse */
+   transition: transform 0.3s ease;
 }
 
 .pokemon__date {
@@ -69,6 +75,12 @@ main {
    color: #3a444d;
    font-size: clamp(10px, 5vw, 1rem);
    box-shadow: -3px 4px 0 #888, -5px 7px 0 #333;
+   transition: all 0.3s ease;
+}
+
+.input__search:focus {
+   border-color: #6ab7f5; /* Destaca o campo quando em foco */
+   box-shadow: -3px 4px 0 #6ab7f5, -5px 7px 0 #333;
 }
 
 .buttons {
@@ -100,6 +112,11 @@ main {
    cursor: pointer;
 }
 
+.button:active {
+   box-shadow: inset -4px 4px 0 #222;
+   transform: scale(0.95);
+}
+
 .button.clicked {
    box-shadow: inset -4px 4px 0 #222;
    transform: scale(0.95);
@@ -119,78 +136,169 @@ main {
    }
 }
 
+/* Card de Pokémon recriado para corresponder EXATAMENTE à imagem de referência */
 .pokemon-card {
    position: absolute;
-   display: block; /* Sempre presente, controlamos com opacity */
-   width: 600px;
-   height: 200px;
-   background-color: rgba(255, 255, 255, 0.9);
-   border: solid 2px #000;
+   bottom: 55%;
+   left: 50%;
+   transform: translate(-50%, 20%);
+   width: 59%; /* Reduzido para corresponder à imagem de referência */
+   height: 25%;
+   background-color: white;
    border-radius: 10px;
-   padding: 2px;
-   opacity: 0; /* Invisível inicialmente */
-   transition: opacity 0.5s ease-in-out; /* Transição de fade-in e fade-out */
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+   padding: 10px 15px; /* Restaurado para o valor original */
+   opacity: 0;
+   transition: opacity 0.3s ease-in-out;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
    z-index: 10;
-   pointer-events: none; /* Não permite interação enquanto invisível */
+   pointer-events: none;
+   display: flex;
+   flex-direction: column;
+   align-items: center; /* Centraliza horizontalmente */
+   justify-content: center; /* Centraliza verticalmente */
+   text-align: center; /* Centraliza texto */
 }
 
 .pokemon-card.visible {
-   opacity: 1; /* Aparece com fade-in */
-   pointer-events: auto; /* Permite interação quando visível */
+   opacity: 1;
+   pointer-events: auto;
 }
 
 .pokemon-card.hidden {
-   opacity: 0; /* Some com fade-out */
-   pointer-events: none; /* Impede interação durante o fade-out */
+   opacity: 0;
+   pointer-events: none;
 }
 
-
+/* Imagem do Pokémon centralizada */
 .pokemon-card__image {
-   width: 20%; /* A imagem ocupa toda a largura disponível */
-   height: auto; /* A altura da imagem se ajusta proporcionalmente */
-   margin-bottom: 0.3em; /* Margem mínima abaixo da imagem */
+   width: 55px; /* Tamanho reduzido conforme a imagem */
+   height: auto;
+   margin-bottom: 8px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
 }
 
-.card-larger {
-   width: 260px; /* Aumenta a largura do card */
-   height: 190px; /* Aumenta a altura do card */
+/* Informações centralizadas */
+.pokemon-card__info {
+   width: 100%;
+   padding: 2px 0;
+   font-size: 13px; /* Reduzido para corresponder à imagem */
+   font-weight: 500;
+   margin: 2px 0;
+   border-radius: 0;
+   background-color: transparent;
+   color: #333;
+   text-align: center; /* Centraliza o texto */
 }
-@media (max-width: 320px) {
-   .card-larger {
-      width: 225px; /* Largura menor em telas de 320px */
-      height: 160px; /* Altura menor */
+
+/* Botão centralizado */
+.pokemon-card__close {
+   background-color: #ff6347;
+   color: #fff;
+   border: none;
+   border-radius: 5px;
+   padding: 5px 10px;
+   cursor: pointer;
+   font-size: 11px;
+   margin-top: 3px;
+   width: auto;
+   font-weight: 500;
+   align-self: center;
+}
+
+/* Quando o card é visível, esconde a imagem do Pokémon */
+.pokemon-card.visible ~ .pokemon__image {
+   opacity: 0 !important;
+}
+
+/* Ajustes responsivos refinados */
+@media (max-width: 425px) {
+   .pokemon-card {
+      width: 63%;
+      padding: 6px; /* Reduzido para 6px para economizar espaço vertical */
+      height: 25%; /* Mantém a altura definida */
+   }
+
+   .pokemon-card__image {
+      width: 45px; /* Imagem menor */
+      margin-bottom: 4px; /* Menos espaço abaixo da imagem */
+   }
+
+   .pokemon-card__info {
+      font-size: 11px; /* Fonte menor */
+      padding: 1px 0; /* Menos padding */
+      margin: 1px 0; /* Menos margem */
+   }
+
+   .pokemon-card__close {
+      font-size: 11px;
+      padding: 3px 8px; /* Botão menor */
+      margin-top: 4px; /* Menos espaço acima do botão */
    }
 }
 
+@media (max-width: 375px) {
+   .pokemon-card {
+      width: 63%;
+      padding: 5px 6px; /* Ainda menos padding */
+   }
 
+   .pokemon-card__image {
+      width: 40px; /* Imagem ainda menor */
+      margin-bottom: 3px;
+   }
 
-.pokemon-card__info {
-   width: 100%; /* O texto vai ocupar toda a largura do card */
-   height: auto;
-   padding: 1px 8px; /* Define um padding fixo para consistência */
-   font-size: clamp(10px, 2.5vw, 14px); /* Mantém a responsividade do texto */
-   line-height: 1.4; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
-   margin: 2px 0; /* Ajusta o espaçamento vertical entre os elementos */
-   border-radius: 4px; /* Suaviza os cantos */
-   background-color: rgba(255, 255, 255, 0.8); /* Fundo branco semitransparente para destacar o texto */
-   color: #333; /* Cor do texto mais suave */
+   .pokemon-card__info {
+      font-size: 10px; /* Fonte ainda menor */
+      padding: 0;
+      margin: 1px 0;
+   }
+
+   .pokemon-card__close {
+      font-size: 10px;
+      padding: 2px 6px;
+      margin-top: 3px;
+   }
 }
 
-.pokemon-card__close {
-   background-color: #ff6347; /* Tom mais suave de vermelho para o botão */
-   color: #fff; /* Texto branco no botão */
-   border: none; /* Remove a borda padrão */
-   border-radius: 4px; /* Bordas arredondadas */
-   padding: clamp(4px, 1.5vw, 8px); /* Padding responsivo */
-   cursor: pointer; /* Cursor de ponteiro para indicar que é clicável */
-   font-size: clamp(8px, 2vw, 12px); /* Tamanho do texto responsivo */
-   margin-top: clamp(4px, 1.5vw, 8px); /* Espaço acima do botão */
-   width: clamp(60px, 25%, 100px); /* Largura ajustada para o botão */
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar o botão */
-   transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+@media (max-width: 320px) {
+   .pokemon-card {
+      width: 63%;
+      padding: 4px; /* Minimal padding */
+      height: 25%; /* Mantém a altura */
+   }
+
+   .pokemon-card__image {
+      width: 35px; /* Imagem muito menor */
+      margin-bottom: 2px;
+   }
+
+   .pokemon-card__info {
+      font-size: 9px; /* Fonte muito pequena */
+      font-weight: 600; /* Compensando com negrito para legibilidade */
+      margin: 0;
+      line-height: 1.2; /* Menos espaço entre linhas */
+   }
+
+   .pokemon-card__close {
+      font-size: 9px;
+      padding: 2px 5px;
+      margin-top: 2px;
+   }
 }
 
-.pokemon-card__close:hover {
-   background-color: #e5533c; /* Muda a cor do botão ao passar o mouse */
+/* Adicionando animação para carregamento */
+@keyframes blink {
+   0%,
+   100% {
+      opacity: 1;
+   }
+   50% {
+      opacity: 0.5;
+   }
+}
+
+.pokemon__name:contains('Carregando...') {
+   animation: blink 1s infinite;
 }
